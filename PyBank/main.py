@@ -17,7 +17,6 @@ greatestdecmonth=""
 
 
 
-
 with open(csvpath, 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
 
@@ -44,9 +43,6 @@ with open(csvpath, 'r') as csvfile:
         if change < greatestdecrease:
             greatestdecrease = change
             greatestdecmonth = row[0]
-
-
-
 
 
 
