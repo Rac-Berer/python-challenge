@@ -6,18 +6,13 @@ csvpath = os.path.join('Resources','election_data.csv')
 votes=0
 candidate=0
 totalvotes=0
+winningvotes = 0
 winner=""
-candidate1=""
-candidate1votes=0
-candidate1percent=0.000
-candidate2percent=0.000
-candidate2=""
-candidate2votes=0
-candidate3percent=0.000 
-candidate3=""
-candidate3votes=0
+candidate_outputlist = []
 
-dict=({"candidate1":"Charles Casper Stockham","candidate2":"Diana DeGette", "candidate3":"Raymon Anthony Doane"})
+
+candidates_dict={}
+candidate_list = []
 
 with open(csvpath, 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -29,38 +24,21 @@ with open(csvpath, 'r') as csvfile:
         votes = (row[0])
         candidate = (row[2])
 
-        if candidate == "candidate1":
-            candidate1 = candidate1
-            candidate1votes = candidate1votes + 1
-            candidate1percent = candidate1votes/totalvotes * 100
 
-        if candidate == "candidate2":
-            candidate2votes = candidate2votes + 1
-            candidate2percent = candidate2votes/totalvotes * 100
+        if candidate not in candidate_list:
+            candidate_list.append(candidate)
+            candidates_dict[candidate] = 0
 
-        if candidate == "candidate3":
-            candidate3votes = candidate3votes + 1
-            candidate3percent = candidate3votes/totalvotes * 100
+        candidates_dict[candidate] = candidates_dict[candidate] + 1
 
-        if candidate1votes > candidate2votes and candidate1votes > candidate3votes:
-            candidate1 = winner
+    for candidate in candidates_dict:
+        votes = candidates_dict[candidate]
+        percentvotes = round(votes / totalvotes * 100,3)
 
-            winner = candidate1
-
-        if candidate2votes > candidate1votes and candidate2votes > candidate3votes:
-            candidate2 = winner
-
-            winner = candidate2
-
-        if candidate3votes > candidate1votes and candidate3votes > candidate2votes:
-            candidate3 = winner
-
-            winner = candidate3
-
-
-        dict["Charles Casper Stockham"]= candidate1
-        dict["Diana DeGette"]= candidate2
-        dict["Raymon Anthony Doane"]= candidate3
+        candidate_outputlist.append(f'{candidate}: {percentvotes}% ({votes})')
+        if votes > winningvotes:
+            winningvotes=votes
+            winner = candidate
 
 
 output=f"""
@@ -68,9 +46,9 @@ Election Results
 -------------------------
 Total Votes: {totalvotes}
 -------------------------
-{candidate1}: {candidate1percent}% ({candidate1votes})
-{candidate2}: {candidate2percent}% ({candidate2votes})
-{candidate3}: {candidate3percent}% ({candidate3votes})
+{candidate_outputlist[0]}
+{candidate_outputlist[1]}
+{candidate_outputlist[2]}
 -------------------------
 Winner: {winner}
 -------------------------
