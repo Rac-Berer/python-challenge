@@ -1,7 +1,7 @@
 import os
 import csv
 
-csvpath = os.path.join('Resources','election_data.csv')
+csvpath = os.path.join('PyPoll','Resources','election_data.csv')
 
 votes=0
 candidate=0
@@ -56,5 +56,5 @@ Winner: {winner}
 
 print(output)
 
-with open("analysis/budget.txt", 'w') as outfile:
+with open("PyPoll/analysis/budget.txt", 'w') as outfile:
     outfile.write(output)

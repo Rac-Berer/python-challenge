@@ -2,7 +2,7 @@
 import os
 import csv
 
-csvpath = os.path.join('Resources','budget_data.csv')
+csvpath = os.path.join('PyBank','Resources','budget_data.csv')
 
 totalprofit=0
 totalmonth=0
@@ -61,5 +61,5 @@ Greatest Decrease in Profits: {greatestdecmonth} (${greatestdecrease})
 
 print(output)
 
-with open("analysis/budget.txt", 'w') as outfile:
+with open("PyBank/analysis/budget.txt", 'w') as outfile:
     outfile.write(output)
